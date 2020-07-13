@@ -4,4 +4,3 @@ import 'bootstrap'
 
 import '../css/style.css'
 
-console.log("holiwissssss");
