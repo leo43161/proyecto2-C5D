@@ -6,7 +6,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     index: './src/js/index.js',
-    admin: './src/js/admin.js'
+    admin: './src/js/admin.js',
+    login: './src/js/login.js'
   },
   output: {
     filename: 'js/[name].js',
@@ -59,6 +60,20 @@ module.exports = {
       inject: true,
       chunks: ['admin'],
       filename: './admin.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/login.html',
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true
+      },
+      inject: true,
+      chunks: ['login'],
+      filename: './login.html'
     }),
     new MiniCssExtractPlugin({
       filename: 'css/style.css'
