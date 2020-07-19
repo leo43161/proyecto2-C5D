@@ -1,4 +1,6 @@
-//Logica de pagina login.
 
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-function
+import 'bootstrap'
+
+import '../css/style.css'
