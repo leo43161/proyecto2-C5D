@@ -5,13 +5,30 @@ import { User } from "./user";
 
 let userlist = [];
 defaultUser();
+checkLoggedIn();
+
+//Check if have already a user logged in
+function checkLoggedIn() {
+  if (localStorage.length > 0) {
+    if (JSON.parse(localStorage.getItem("userLoggedIn")) != null) {
+      cleanForm();
+      console.log("usuario logueado");
+    } else {
+      console.log("usuario NO logueado");
+    }
+  } else {
+    console.log(`tam chico`);
+  }
+}
 
 //Create a new user in case none exist before
 function defaultUser() {
   if (localStorage.length == 0) {
     //Localstorage is empty
     console.log("local storage vacio, creando un usuario por defecto");
-    userlist.push(new User("admin", 'admin@flow.com', 12345678, dateToday(), null, true)); //Create a new default user and add this to the list
+    userlist.push(
+      new User("admin", "admin@flow.com", 12345678, dateToday(), null, true)
+    ); //Create a new default user and add this to the list
     localStorage.setItem("users", JSON.stringify(userlist)); //Save default user in the localStorage
   } else {
     console.log("no esta vacio");
@@ -32,7 +49,7 @@ function validateEmail(email) {
     if (expresion.test(email.value)) {
       inputValido(email);
       console.log("esta bien el mail");
-      return true;      
+      return true;
     } else {
       inputInvalido(email);
       return false;
@@ -79,15 +96,18 @@ function validateForm() {
 }
 
 window.login = function (event) {
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
   event.preventDefault();
   if (validateForm()) {
     //Si los datos estan validados
     let _userList = JSON.parse(localStorage.getItem("users"));
     console.log("Lista recuperada de localStorage");
     console.log(_userList);
-    verificarDatos(_userList, email, password);
+    let userLogedIn = verificarDatos(_userList, email, password);
+    //sessionStorage.setItem('userLoggedIn', JSON.stringify(userLogedIn));
+    localStorage.setItem("userLoggedIn", JSON.stringify(userLogedIn));
+    checkLoggedIn();
   }
 };
 
@@ -107,10 +127,11 @@ function verificarDatos(array, email, password) {
 
           //Se debe redirigir a la pagina administracion.
           //Redireccionamiento tras 2 segundos
-            setTimeout(function () {
-              cleanForm();
-              window.location.href = "./admin.html";
-            }, 2000);
+          //   setTimeout(function () {
+          //     cleanForm();
+          //     window.location.href = "./admin.html";
+          //   }, 2000);
+          return array[i];
         } else {
           console.log("Las contraseñas no coinciden");
         }
