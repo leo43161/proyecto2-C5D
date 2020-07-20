@@ -3,13 +3,13 @@
 
 export class User {
  
-    constructor(name, mail, password, bornDate, phoneNumber) {
+    constructor(name, mail, password, bornDate, phoneNumber, state) {
         this.name = name;
         this.mail = mail;
         this.password = password;
         this.bornDate = bornDate;
         this.phoneNumber = phoneNumber;
-        this.state = false; //False is when user are disabled (in this case, the user need to be confirmed)
+        this.state = state; //False is when user are disabled (in this case, the user need to be confirmed)
     }
 
     //Methods
@@ -27,14 +27,14 @@ export class User {
     }
 
 
-    set userState(state){
-        //When state is true, this is habilitated
-        this.state = state;
-    }
+    // set userState(state){
+    //     //When state is true, this is habilitated
+    //     this.state = state;
+    // }
 
-    get userState() {
-        return this.state;
-    }
+    // get userState() {
+    //     return this.state;
+    // }
     
 
 }
