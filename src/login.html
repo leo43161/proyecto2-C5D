@@ -45,14 +45,25 @@
             <div class="row justify-content-center">
                 <div class="col-xs-12 col-sm-10 col-lg-8 p-4 shadow-lg p-3 mb-5 bg-white rounded">
                     <p class="lead">Login</p>
+<<<<<<< HEAD
                     <form id="loginForm">
+=======
+                    <form onsubmit="validarUsuario(event)">
+>>>>>>> 53bff9c8c71b1c97e3ce0f07345002230cde331d
                         <div class="form-group">
                             <label>Correo Electrónico:</label>
-                            <input type="email" class="form-control" required>
+                            <input type="email" class="form-control" id="correo" onblur="validarCorreo(this)">
+                            <div class="invalid-feedback">
+                                Mail invalido
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Contraseña:</label>
-                            <input type="password" class="form-control"><small class="form-text text-muted">No compartas
+                            <input type="password" class="form-control" id="contraseña" onblur="validarContraseña(this)">
+                            <div class="invalid-feedback">
+                                Contraseña invalida
+                            </div>
+                            <small class="form-text text-muted">No compartas
                                 tus
                                 contraseñas con terceros.</small>
                             <a href="" data-toggle="modal" data-target="#exampleModal">
