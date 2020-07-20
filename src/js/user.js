@@ -3,12 +3,13 @@
 
 export class User {
  
-    constructor(name, mail, password, bornDate, phoneNumber, state) {
+    constructor(name, mail, password, bornDate, phoneNumber, state, dateCreated) {
         this.name = name;
         this.mail = mail;
         this.password = password;
         this.bornDate = bornDate;
         this.phoneNumber = phoneNumber;
+        this.dateCreated = dateCreated;
         this.state = state; //False is when user are disabled (in this case, the user need to be confirmed)
     }
 

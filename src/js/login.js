@@ -6,9 +6,6 @@ import { User } from "./user";
 let userlist = [];
 defaultUser();
 
-
-//
-
 //Create a new user in case none exist before
 function defaultUser() {
   if (localStorage.length == 0) {
@@ -22,60 +19,53 @@ function defaultUser() {
   }
 }
 
-
-function inputInvalido(input){
-    input.className = "form-control is-invalid";
+function inputInvalido(input) {
+  input.className = "form-control is-invalid";
 }
 
-function inputValido(input){
-    input.className = "form-control is-valid";
+function inputValido(input) {
+  input.className = "form-control is-valid";
 }
 
-window.validarCorreo = function(correo){
-    let expresion = /\w+@\w+\.[a-z]/;
-    if(correo.value != ""){
-        if(expresion.test(correo.value)){
-            inputValido(correo);
-            console.log("esta bien el correo");
-        }else{
-            inputInvalido(correo);
-        }
-    }else{
-        inputInvalido(correo);
+function validateEmail(email) {
+  console.log("llegue");
+  let expresion = /\w+@\w+\.[a-z]/;
+  if (email.value != "") {
+    if (expresion.test(email.value)) {
+      inputValido(email);
+      console.log("esta bien el mail");
+    } else {
+      inputInvalido(email);
     }
-} 
-
-window.validarContraseña = function(contraseña){
-    if(contraseña.value != ""){
-        if(contraseña.value.length > 7){
-            inputValido(contraseña);
-        }else{
-            inputInvalido(contraseña);
-        }
-    }else{
-        inputInvalido(contraseña);
-    }
+  } else {
+    inputInvalido(email);
+  }
 }
 
+window.validateEmail = function (email) {
+  validateEmail(email);
+};
 
+function validatePassword(password) {
+  if (password.value != "") {
+    if (password.value.length > 7) {
+      inputValido(password);
+    } else {
+      inputInvalido(password);
+    }
+  } else {
+    inputInvalido(password);
+  }
+}
 
+window.validatePassword = function (password) {
+  validatePassword(password);
+};
 
-
-
-
-
-
-
-
-
-
-
-//--//--//--///--///--//--///-//-/-
-//  Validar formulario  --///-//-/-
-//--//--//--///--///--//--///-//-/-
-
-function validateForm(form) {
+function validateForm() {
   //Si todo esta ok, procedemos a iniciar sesion
+  validateEmail(document.getElementById("email"));
+  validatePassword(document.getElementById("password"));
   login("admin", 1234);
 }
 
@@ -100,11 +90,12 @@ function verificarDatos(array, name, password) {
           //Comprobamos si los password coinciden
           console.log(`Login exitoso`);
 
-//Se debe redirigir a la pagina administracion.
-          //Redireccionamiento tras 5 segundos
-          setTimeout( function() {
-            cleanForm();
-            window.location.href = "./admin.html"; }, 2000 );
+          //Se debe redirigir a la pagina administracion.
+          //Redireccionamiento tras 2 segundos
+          //   setTimeout(function () {
+          //     cleanForm();
+          //     window.location.href = "./admin.html";
+          //   }, 2000);
         } else {
           console.log("Las contraseñas no coinciden");
         }
@@ -128,5 +119,3 @@ function dateToday() {
     today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
   return dateToday;
 }
-
-
