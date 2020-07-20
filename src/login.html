@@ -45,7 +45,7 @@
             <div class="row justify-content-center">
                 <div class="col-xs-12 col-sm-10 col-lg-8 p-4 shadow-lg p-3 mb-5 bg-white rounded">
                     <p class="lead">Login</p>
-                    <form id="loginForm">
+                    <form id="loginForm" onsubmit="login(event);">
                         <div class="form-group">
                             <label>Correo Electrónico:</label>
                             <input type="email" class="form-control" id="email" onblur="validateEmail(this);">

@@ -3,9 +3,9 @@
 
 export class User {
  
-    constructor(name, mail, password, bornDate, phoneNumber, state, dateCreated) {
+    constructor(name, email, password, bornDate, phoneNumber, state, dateCreated) {
         this.name = name;
-        this.mail = mail;
+        this.email = email;
         this.password = password;
         this.bornDate = bornDate;
         this.phoneNumber = phoneNumber;
@@ -19,7 +19,7 @@ export class User {
         //Show information about the user in the console
         let user = ` 
         Name: ${this.name}
-        Mail: ${this.mail}
+        Email: ${this.email}
         Born date: ${this.bornDate}
         Phone number: ${this.phoneNumber}
         State: ${this.state}

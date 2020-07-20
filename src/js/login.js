@@ -11,11 +11,10 @@ function defaultUser() {
   if (localStorage.length == 0) {
     //Localstorage is empty
     console.log("local storage vacio, creando un usuario por defecto");
-    userlist.push(new User("admin", null, 1234, dateToday(), null, true)); //Create a new default user and add this to the list
+    userlist.push(new User("admin", 'admin@flow.com', 12345678, dateToday(), null, true)); //Create a new default user and add this to the list
     localStorage.setItem("users", JSON.stringify(userlist)); //Save default user in the localStorage
   } else {
     console.log("no esta vacio");
-    validateForm();
   }
 }
 
@@ -28,17 +27,19 @@ function inputValido(input) {
 }
 
 function validateEmail(email) {
-  console.log("llegue");
   let expresion = /\w+@\w+\.[a-z]/;
   if (email.value != "") {
     if (expresion.test(email.value)) {
       inputValido(email);
       console.log("esta bien el mail");
+      return true;      
     } else {
       inputInvalido(email);
+      return false;
     }
   } else {
     inputInvalido(email);
+    return false;
   }
 }
 
@@ -50,11 +51,14 @@ function validatePassword(password) {
   if (password.value != "") {
     if (password.value.length > 7) {
       inputValido(password);
+      return true;
     } else {
       inputInvalido(password);
+      return false;
     }
   } else {
     inputInvalido(password);
+    return false;
   }
 }
 
@@ -64,22 +68,33 @@ window.validatePassword = function (password) {
 
 function validateForm() {
   //Si todo esta ok, procedemos a iniciar sesion
-  validateEmail(document.getElementById("email"));
-  validatePassword(document.getElementById("password"));
-  login("admin", 1234);
+  if (
+    validateEmail(document.getElementById("email")) &&
+    validatePassword(document.getElementById("password"))
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
-function login(name, password) {
-  let _userList = JSON.parse(localStorage.getItem("users"));
-  console.log("Lista recuperada de localStorage");
-  console.log(_userList);
-  verificarDatos(_userList, name, password);
-}
+window.login = function (event) {
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+  event.preventDefault();
+  if (validateForm()) {
+    //Si los datos estan validados
+    let _userList = JSON.parse(localStorage.getItem("users"));
+    console.log("Lista recuperada de localStorage");
+    console.log(_userList);
+    verificarDatos(_userList, email, password);
+  }
+};
 
-function verificarDatos(array, name, password) {
+function verificarDatos(array, email, password) {
   for (let i in array) {
-    console.log(name);
-    if (name == array[i].name) {
+    console.log(email);
+    if (email == array[i].email) {
       //Si se encontro algun usuario con ese nombre
       console.log(`se encontraron ${parseInt(i) + 1} coincidencias`);
 
@@ -92,16 +107,16 @@ function verificarDatos(array, name, password) {
 
           //Se debe redirigir a la pagina administracion.
           //Redireccionamiento tras 2 segundos
-          //   setTimeout(function () {
-          //     cleanForm();
-          //     window.location.href = "./admin.html";
-          //   }, 2000);
+            setTimeout(function () {
+              cleanForm();
+              window.location.href = "./admin.html";
+            }, 2000);
         } else {
           console.log("Las contraseñas no coinciden");
         }
       }
     } else {
-      console.log("no se encontro ningun usuario activo con ese nombre");
+      console.log("no se encontro ningun usuario activo con ese email");
     }
   }
 }
